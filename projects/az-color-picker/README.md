@@ -8,6 +8,7 @@ Thanks to Cross-device event handling works in mobile browsers.
 ### Content
 - [Instalation](#instalation)
 - [Usage](#usage)
+- [Options](#options)
 - [Suggestions](#suggestions)
 - [License](#license)
 
@@ -32,10 +33,9 @@ import { AzColorPicker } from 'az-color-picker';
 
 ## Usage
 ```angular2html
-<az-color-picker [(inputColor)]="color"></az-color-picker>
+<az-color-picker [(color)]="color"></az-color-picker>
 ```
-inputColor is model signal with hex-string type (opacity hex code is optional)
-there is also width and height inputs, without this params, component will fit to 100% width of parent container
+color is model signal with hex-string type (opacity hex code is optional)
 ```typescript
 import { Component } from '@angular/core';
 
@@ -43,7 +43,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   imports: [AzColorPicker],
   template: `
-    <az-color-picker  [(inputColor)]="color" />
+    <az-color-picker  [(color)]="color" />
   `,
   styleUrls: ['./app.component.scss']
 })
@@ -51,6 +51,18 @@ export class AppComponent {
   color = "#5d5ff0";
 }
 ```
+
+## Options
+| Parameter | Description |
+| --- | --- |
+| [(color)]: string  | initial color |
+| [width]: number | width of color picker, takes 100% of parent by default |
+| [height]: number | height of color picker |
+| [submitBtnText]: string | text of submit btn |
+| [cancelBtnText]: string | text of cancel btn |
+| (onSubmit): string | fires on click submit btn |
+| (onCancel): void | fires on click cancel btn |
+| (onCopied): string | fires on click new color box |
 
 ## Suggestions
 It's not that ideal, because I only started and not have many ideas how to extend api.
