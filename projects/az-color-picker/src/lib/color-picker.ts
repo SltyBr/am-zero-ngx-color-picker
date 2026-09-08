@@ -145,13 +145,12 @@ export class AzColorPicker implements OnChanges {
   hueHandler: Signal<ElementRef<HTMLElement>> = viewChild.required('hueHandler');
   alphaHandler: Signal<ElementRef<HTMLElement>> = viewChild.required('alphaHandler');
 
-  inputColor = model.required<string>();
+  color = model.required<string>();
   width = input<number>();
   height = input<number>();
   submitBtnText = input<string>('Ok');
   cancelBtnText = input<string>('Cancel');
 
-  colorChanged = output<string>();
   onSubmit = output<string>();
   onCancel = output<void>();
   onCopied = output<string>();
@@ -275,10 +274,10 @@ export class AzColorPicker implements OnChanges {
   constructor() {
     afterNextRender({
       read: () => {
-        const { r, g, b, a } = hexaToRgba(this.inputColor());
+        const { r, g, b, a } = hexaToRgba(this.color());
         const { h, s, v } = rgbToHsv(r, g, b);
 
-        this.initialColor = this.inputColor();
+        this.initialColor = this.color();
         this.hue.set(h);
         this.saturation.set(s);
         this.value.set(v);
@@ -331,7 +330,7 @@ export class AzColorPicker implements OnChanges {
           skip(1),
           takeUntilDestroyed(this.destroyRef)
         ).subscribe(value => {
-          this.inputColor.set(value)
+          this.color.set(value)
         });
       },
     });
