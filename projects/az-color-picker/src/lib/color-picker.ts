@@ -57,7 +57,7 @@ import { hexaToRgba, hslToHsv, hsvToHsl, hsvToRgb, rgbToHex, rgbToHsv } from './
           <div class="box box2"></div>
         </div>
       </div>
-      <div class="controls">
+      <div class="handlers">
         <div class="hue-chooser"
           [azDragContainer]="{ leftCoef: hue() / 360, topCoef: 0 }"
           (azDrag)="updateHuePanelHandlerPos($event)"
@@ -86,7 +86,7 @@ import { hexaToRgba, hslToHsv, hsvToHsl, hsvToRgb, rgbToHex, rgbToHsv } from './
     <label class="hex" for="hex">
       hex: <input type="text" id="hex" [formControl]="hexControl">
     </label>
-    <div class="channels">
+    <div class="controls">
       <div class="groups">
         @if (showRgbControls()) {
           <div class="group">
