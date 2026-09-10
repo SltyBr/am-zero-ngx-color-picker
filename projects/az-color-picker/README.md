@@ -60,6 +60,10 @@ export class AppComponent {
 | [height]: number | height of color picker |
 | [submitBtnText]: string | text of submit btn |
 | [cancelBtnText]: string | text of cancel btn |
+| [showRgbControls]: boolean | to show rgb controls |
+| [showHslControls]: boolean | to show hsl controls |
+| [showAlphaControl]: boolean | to show alpha control |
+| [showAlphaHandler]: boolean | to show alpha handler |
 | (onSubmit): string | fires on click submit btn |
 | (onCancel): void | fires on click cancel btn |
 | (onCopied): string | fires on click new color box |
