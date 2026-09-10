@@ -66,67 +66,77 @@ import { hexaToRgba, hslToHsv, hsvToHsl, hsvToRgb, rgbToHex, rgbToHsv } from './
             'left.px': hueHandlerPos(),
           }"></div>
         </div>
-        <div
-          class="alpha-chooser"
-          [ngStyle]="{
-            '--hueColor': hueColorValue,
-          }"
-          [azDragContainer]="{ topCoef: 0, leftCoef: alpha() }"
-          (azDrag)="updateAlphaPanelHandlerPos($event)"
-        >
-          <div class="alpha-placeholder"></div>
-          <div class="handler centered-vertical" #alphaHandler [ngStyle]="{
-            'left.px': alphaHandlerPos(),
-          }"></div>
-        </div>
+        @if (showAlphaHandler()) {
+          <div
+            class="alpha-chooser"
+            [ngStyle]="{
+              '--hueColor': hueColorValue,
+            }"
+            [azDragContainer]="{ topCoef: 0, leftCoef: alpha() }"
+            (azDrag)="updateAlphaPanelHandlerPos($event)"
+          >
+            <div class="alpha-placeholder"></div>
+            <div class="handler centered-vertical" #alphaHandler [ngStyle]="{
+              'left.px': alphaHandlerPos(),
+            }"></div>
+          </div>
+        }
       </div>
     </div>
     <label class="hex" for="hex">
       hex: <input type="text" id="hex" [formControl]="hexControl">
     </label>
     <div class="channels">
-      <div class="group">
-        <ng-container [formGroup]="rgbForm">
-          <label for="r">
-            r
-            <input type="number" id="r"  min="0" max="255" step="1" formControlName="r"/>
-          </label>
-          <label for="g">
-            g
-            <input type="number" id="g"  min="0" max="255" step="1" formControlName="g"/>
-          </label>
-          <label for="b">
-            b
-            <input type="number" id="b"  min="0" max="255" step="1" formControlName="b"/>
-          </label>
-        </ng-container>
+      <div class="groups">
+        @if (showRgbControls()) {
+          <div class="group">
+            <ng-container [formGroup]="rgbForm">
+              <label for="r">
+                r
+                <input type="number" id="r"  min="0" max="255" step="1" formControlName="r"/>
+              </label>
+              <label for="g">
+                g
+                <input type="number" id="g"  min="0" max="255" step="1" formControlName="g"/>
+              </label>
+              <label for="b">
+                b
+                <input type="number" id="b"  min="0" max="255" step="1" formControlName="b"/>
+              </label>
+            </ng-container>
+          </div>
+        }
+        @if (showHslControls()) {
+          <div class="group">
+            <ng-container [formGroup]="hslForm">
+              <label for="h">
+                h
+                <input type="number" id="h"  min="0" step="1" max="360" formControlName="h"/>
+              </label>
+              <label for="s">
+                s
+                <input type="number" id="s"  min="0" step="1" max="100" formControlName="s"/>
+              </label>
+              <label for="l">
+                l
+                <input type="number" id="l"  min="0" step="1" max="100" formControlName="l"/>
+              </label>
+            </ng-container>
+          </div>
+        }
       </div>
-      <div class="group">
-        <ng-container [formGroup]="hslForm">
-          <label for="h">
-            h
-            <input type="number" id="h"  min="0" step="1" max="360" formControlName="h"/>
-          </label>
-          <label for="s">
-            s
-            <input type="number" id="s"  min="0" step="1" max="100" formControlName="s"/>
-          </label>
-          <label for="l">
-            l
-            <input type="number" id="l"  min="0" step="1" max="100" formControlName="l"/>
-          </label>
-        </ng-container>
-      </div>
-      <label class="alpha" for="alpha">
-        a
-        <input
-          [formControl]="alphaControl"
-          type="number"
-          id="alpha"
-          min="0"
-          max="1"
-          step="0.01">
-      </label>
+      @if (showAlphaControl()) {
+        <label class="alpha" for="alpha">
+          a
+          <input
+            [formControl]="alphaControl"
+            type="number"
+            id="alpha"
+            min="0"
+            max="1"
+            step="0.01">
+        </label>
+      }
     </div>
     <div class="actions">
       <button (click)="onCancel.emit()">{{ cancelBtnText() }}</button>
@@ -148,8 +158,12 @@ export class AzColorPicker implements OnChanges {
   color = model.required<string>();
   width = input<number>();
   height = input<number>();
-  submitBtnText = input<string>('Ok');
-  cancelBtnText = input<string>('Cancel');
+  submitBtnText = input('Ok');
+  cancelBtnText = input('Cancel');
+  showRgbControls = input(true);
+  showHslControls = input(true);
+  showAlphaControl = input(true);
+  showAlphaHandler = input(true);
 
   onSubmit = output<string>();
   onCancel = output<void>();

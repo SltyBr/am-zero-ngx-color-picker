@@ -52,6 +52,7 @@
 
 .controls {
   display: flex;
+  justify-content: center;
   gap: 8px;
   flex-direction: column;
   flex-grow: 1;
@@ -128,11 +129,16 @@
 }
 
 .channels {
-  display: grid;
-  grid-template-columns: 1fr 0.3fr;
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 8px;
-  grid-row-gap: 8px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.groups {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
 }
 
 .group {
@@ -148,19 +154,11 @@
   & input {
     width: 100%;
   }
-
-  &:nth-child(1) {
-    grid-area: 1 / 1 / 2 / 2;
-  }
-
-  &:nth-child(2) {
-    grid-area: 2 / 1 / 3 / 2;
-  }
 }
 
 .alpha {
-  grid-area: 1 / 2 / 3 / 3;
-
+  display: flex;
+  gap: 8px;
   & input {
     width: 100%;
   }
